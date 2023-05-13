@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FPTStore.Data;
 using FPTStore.Models;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FPTStore.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;

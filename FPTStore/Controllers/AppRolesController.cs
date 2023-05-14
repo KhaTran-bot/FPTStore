@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FPTStore.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class AppRolesController : Controller
     {
         private readonly ApplicationDbContext _context;

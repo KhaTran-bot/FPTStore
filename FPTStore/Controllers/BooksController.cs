@@ -91,17 +91,19 @@ namespace FPTStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,Publisher,Category,Price,Description,TotalPage,PublishTime,ImageUrl")] Book book)
+        public async Task<IActionResult> Edit(int id, Book book)
         {
             if (id != book.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (true)
             {
                 try
                 {
+                    string uniqueFileName = GetUploadedFileName(book);
+                    book.ImageUrl = uniqueFileName;
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }

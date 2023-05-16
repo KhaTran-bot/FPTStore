@@ -7,58 +7,29 @@
 <h1>Welcome to FPT store book</h1>
 <form method="post">
     <input type="text" name="txt_key" />
-    <button type="submit">Search</button>
+    <button class="btn-outline-primary" type="submit">Search</button>
     <label>Số lượng sách tìm được: @ViewBag.Count</label>
 </form>
 
-    @*<thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalPage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-<div class="container text-center">
-
-    
+<div class="container">
          <div class="row row-cols-auto">
              @foreach (var item in Model)
             {
-        <div class="col">
-            
-                <div class="card" style="width: 18rem;">
-            <img src="@Url.Content("~/resource/image/" + item.ImageUrl)" class="card-img-top" alt="" width="150px" height="150px">
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Description).</p>
-                <p class="card-text"> @Html.DisplayFor(modelItem => item.Category)</p>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Price).</p>
-
+            <div class="col" style="margin: 30px">           
+            <div class="card" style="width: 18rem;">
+            <div class="card-header text-center">
+                <img src="@Url.Content("~/resource/image/" + item.ImageUrl)" 
+                class="card-top" alt="" width="150" height="200" style="border: 30px">
+            </div>
+            <div class="card-body " style="height: 200px">
+                <h5 class="card-title">Title: @Html.DisplayFor(modelItem => item.Title)</h5>
+                <h6 class="card-text">Author: @Html.DisplayFor(modelItem => item.Author)</h6>
+                <h6 class="card-text">Publisher: @Html.DisplayFor(modelItem => item.Publisher)</h6>
+                <h6 class="card-text">Price: @Html.DisplayFor(modelItem => item.Price) VND</h6>
+            </div>
+            <div class="card-footer">
+                <button type="button" onclick="add(@item.Id)" class="btn btn-primary mt-1">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
             </div>
         </div>
     
@@ -67,6 +38,28 @@
     </div>
  
 </div>
+
+@section Scripts {
+    <script>
+        async function add(bookId) {
+            try {
+                var response = await fetch(`/Cart/AddItem?bookId=${bookId}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    var cartCountEl = document.getElementById("cartCount");
+                    cartCountEl.innerHTML = result;
+                    window.location.href = "#cartCount";
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+}
+
+
+
 
         
     

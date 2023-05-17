@@ -5,10 +5,11 @@
 }
 
 <h1>Welcome to FPT store book</h1>
-<form method="post">
-    <input type="text" name="txt_key" />
+<form method="post" style="margin-left: 4%">
+    <input type="text" name="txt_key" style=" width: 40%" />
     <button class="btn-outline-primary" type="submit">Search</button>
-    <label>Số lượng sách tìm được: @ViewBag.Count</label>
+    <br />
+    <label>Number of the book: @ViewBag.Count</label>
 </form>
 
 <div class="container">
@@ -27,14 +28,15 @@
                 <h6 class="card-text">Publisher: @Html.DisplayFor(modelItem => item.Publisher)</h6>
                 <h6 class="card-text">Price: @Html.DisplayFor(modelItem => item.Price) VND</h6>
             </div>
-            <div class="card-footer">
+            <div class="card-footer text-center">
+                <a class="btn btn-outline-info mt-1" asp-controller="Home"
+                        asp-action="Details" asp-route-id="@item.Id">More Details</a>
                 <button type="button" onclick="add(@item.Id)" class="btn btn-primary mt-1">
                     <i class="fa-solid fa-cart-shopping"></i> Add to cart</button>
             </div>
-        </div>
-    
-        </div>
-        }
+            </div>
+            </div>
+            }
     </div>
  
 </div>
